@@ -16,13 +16,13 @@ import { useNavigate, useLocation } from 'react-router-dom';
 
 export default function ChatRooms() {
   const [dataChat, setDataChat] = useState([]);
-  const [dataUser, setDataUser] = useState({});
-  const [myMail, setMyMail] = useState('');
+  // const [dataUser, setDataUser] = useState({});
+  // const [myMail, setMyMail] = useState('');
   const location = useLocation();
   const param = new URLSearchParams(location.search);
   const userMessage = param.get('userMessage');
   const nav = useNavigate();
-  const token = localStorage.getItem('token');
+  // const token = localStorage.getItem('token');
 
   const back = () => {
     nav('/listcontact');
@@ -34,34 +34,34 @@ export default function ChatRooms() {
     return formattedDate;
   }
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('https://autooccasionpart2-production.up.railway.app/api/user/findToken', {
-          method: 'GET',
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-type': 'application/json',
-          },
-        });
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await fetch('https://autooccasionpart2-production.up.railway.app/api/user/findToken', {
+  //         method: 'GET',
+  //         headers: {
+  //           'Authorization': `Bearer ${token}`,
+  //           'Content-type': 'application/json',
+  //         },
+  //       });
 
-        if (!response.ok) {
-          throw new Error('Données non récupérées');
-        }
+  //       if (!response.ok) {
+  //         throw new Error('Données non récupérées');
+  //       }
 
-        const data = await response.json();
-        setDataUser(data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchData();
-  }, [token]);
+  //       const data = await response.json();
+  //       // setDataUser(data);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
+  //   fetchData();
+  // }, [token]);
 
-  useEffect(() => {
-    const { email } = dataUser;
-    setMyMail(email);
-  }, [dataUser]);
+  // useEffect(() => {
+  //   const { email } = dataUser;
+  //   // setMyMail(email);
+  // }, [dataUser]);
 
   useEffect(() => {
     const fetchData = async () => {

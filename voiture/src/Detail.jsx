@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation,useNavigate } from 'react-router-dom';
 import './assets/dist/css/bootstrap.min.css';
 import './assets/dist/js/bootstrap.bundle.min';
@@ -14,12 +14,15 @@ export default function Detail() {
     const parameter = new URLSearchParams(loc.search);
     const idVoiture = parameter.get('idVoiture');
     const prix = parameter.get('prix');
+    const sary = parameter.get('image');
+    // const user = parameter.get('user');
     const token = localStorage.getItem('token');
+    
     // const idAnnonce = parameter.get('annonce');
 
     const  message = async () =>{
       if(token != null){
-        nav('/messagerie');
+        nav('/listContact');
       }else{
         nav('/log');
       }
@@ -28,7 +31,7 @@ export default function Detail() {
     useEffect(() => {
         const fetchData = async () =>{
             try {
-                const reponse = await fetch(`http://localhost:8081/api/voiture/findOne/${idVoiture}`);
+                const reponse = await fetch(`https://autooccasionpart2-production.up.railway.app/api/voiture/findOne/${idVoiture}`);
 
                 if(!reponse.ok){
                     throw new Error('Erreur lors de la recuperation des details');
@@ -129,7 +132,7 @@ export default function Detail() {
           </div>
         </div>
         <div className="col-lg-4 offset-lg-1 p-0 overflow-hidden">
-            <img className="rounded-lg-3" src={voitureDetails.detail.image_car} alt="Image de vehicule" width="720"/>
+            <img className="rounded-lg-3" src={sary} alt="" width="720"/>
         </div>
       </div>
       </div>

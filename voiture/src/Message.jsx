@@ -9,7 +9,6 @@ import './assets/fontawesome-5/css/all.css';
 import user from './assets/img/ordi.jpg'
 import Datamessage from "./Datamessage"
 import { useState } from "react";
-import Header from './Header';
 function Message() {
     const [choix, setChoix] = useState(1);
     const [data, setData] = useState(<Datamessage key={choix} idpersonne={choix} />);

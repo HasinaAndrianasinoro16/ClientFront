@@ -9,7 +9,7 @@ export default function Favoris() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const reponse = await fetch('http://localhost:8081/api/favoris/liste_favoris_user', {
+        const reponse = await fetch('https://autooccasionpart2-production.up.railway.app/api/favoris/liste_favoris_user', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -48,7 +48,7 @@ export default function Favoris() {
           <h1 className="text-start">Liste des favoris:</h1>
           <div className="row">
             {favoris.map(card => (
-              <FavCard key={card.idAnnonce} annonce={card.idAnnonce} idvoiture={card.idCar} prix={card.prix} date={card.date_annonce} image={card.image_car} lieu={card.lieu} descs={card.description} />
+              <FavCard key={card.idAnnonce} annonce={card.idAnnonce} idFavoris={card.idFavoris} idvoiture={card.idCar} prix={card.prix} date={card.date_annonce} image={card.image_car} lieu={card.lieu} descs={card.description} />
             ))}
           </div>
         </div>

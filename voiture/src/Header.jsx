@@ -12,15 +12,15 @@ export default function Header(){
   const nav = useNavigate();
   const [favoris,setFavoris] = useState('/favoris');
   const [historique, setHistorique] = useState('/historique');
+  const [log, setLog] = useState('/log');
   const token = localStorage.getItem('token');
 
-  //lien vers les favoris et historique
-
   useEffect(() => {
-    // Update links based on the presence of token
     if (token === null) {
       setFavoris('/log');
       setHistorique('/log');
+    }else{
+      setLog('/listcontact');
     }
   }, [token]);
 
@@ -32,9 +32,9 @@ export default function Header(){
   const logout = () => {
     localStorage.removeItem('token');
     if (!localStorage.getItem('token')) {
-      window.location.reload();
       showWarn();
-      nav('/');
+      nav('/log');
+      window.location.reload();
     }
   }
   
@@ -56,7 +56,7 @@ export default function Header(){
 
 
       <div className="col-md-3 text-end">
-        <Link to="/log"><button type="button" className="btn btn-success btn-lg me-2">Login</button></Link>
+        <Link to={log}><button type="button" className="btn btn-success btn-lg me-2">Login</button></Link>
         <button type="button" className="btn btn-outline-light btn-lg "onClick={logout} >Log out</button>
       </div>
     </header>

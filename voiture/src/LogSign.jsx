@@ -1,13 +1,16 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Toast } from 'primereact/toast';
 
 export default function LogSign() {
   const navigate = useNavigate();
   const toast = useRef(null);
-  const [email, setEmail] = useState('');
-  const [mdp, setMdp] = useState('');
+  const [email, setEmail] = useState('Doom@strangerthings.com');
+  const [mdp, setMdp] = useState('Doom');
   const [loading, setLoading] = useState(false);
+  const token = localStorage.getItem('token');
+  const [dataUser, setDataUser] = useState([]);
+  const [pseudos, setPseudos] = useState([]);
 
   const showError = () => {
     toast.current.show({
@@ -33,7 +36,7 @@ export default function LogSign() {
     try {
       setLoading(true);
 
-      const reponse = await fetch('http://localhost:8081/api/user/verif', {
+      const reponse = await fetch('https://autooccasionpart2-production.up.railway.app/api/user/verif', {
         method: 'POST',
         headers: {
           'Content-type': 'application/json',
@@ -42,7 +45,7 @@ export default function LogSign() {
       });
 
       if(localStorage.getItem('token')){
-        navigate('/messagerie');
+        navigate('/listcontact');
       }
 
       if (reponse.ok) {
@@ -51,11 +54,13 @@ export default function LogSign() {
 
         localStorage.setItem('token', token);
 
+        // const data = await
+
         setTimeout(() => {
           localStorage.removeItem('token');
           deleteToken();
         }, 20 * 60 * 1000); // la session expire donc après 20 minutes
-        navigate('/messagerie');
+        navigate('/listcontact');
         window.location.reload();
       } else {
         showError();
@@ -66,6 +71,64 @@ export default function LogSign() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('https://autooccasionpart2-production.up.railway.app/api/user/findToken', {
+          method: 'GET',
+          headers: {
+            'Content-type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error("Erreur lors de la récupération des informations de l'utilisateur");
+        }
+
+        const data = await response.json();
+        setDataUser(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
+  }, [token]);
+
+  useEffect(() => {
+    const { nom } = dataUser;
+    // setPseudos(nom + ' '+prenom);
+    setPseudos(nom);
+  }, [dataUser]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const reponse = await fetch('https://autooccasionpart2-production.up.railway.app/api/user_chat/add', {
+          method: 'POST',
+          headers:{
+            'Content-type': 'application/json',
+          },
+          body: JSON.stringify({userName : pseudos}),
+        });
+        console.log('Server response:', reponse);
+    
+        if (!reponse.ok) {
+          const errorText = await reponse.text();
+          console.error(`Error (${reponse.status}): ${errorText}`);
+          throw new Error('Erreur lors de la creation de la commission');
+        }
+    
+        const data = await reponse.json();
+        console.log('Server data:', data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
+  });
+
 
   return (
     <>

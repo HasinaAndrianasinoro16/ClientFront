@@ -15,6 +15,8 @@ import LogSign from './LogSign';
 import Sign from './Sign';
 import Detail from './Detail';
 import Message from './Message';
+import ChatRoom from './ChatRooms';
+import ListContact from './ListContact';
 
 function App() {
   return (
@@ -28,6 +30,8 @@ function App() {
         <Route path='/log' element={<LogSign/>}/>
         <Route path='/sign' element={<Sign/>}/>
         <Route path='/detail' element={<Detail/>}/>
+        <Route path='/chatRoom' element={<ChatRoom/>}/>
+        <Route path='/listContact' element={<ListContact/>}/>
       </Routes>
     </Router>
     // <>
@@ -35,6 +39,10 @@ function App() {
     //   <div className='py-2'></div>
     //   <Messagerie/>
     // </>
+
+    //controller chatcontroller , userController
+    //exception izy rht 
+    //chat , database sequence, message,user, chat, chatService, chatServiceEmpl, sequence generator service, user service, userServiceempl, repository , chatrepository, user repository 
   );
 }
 

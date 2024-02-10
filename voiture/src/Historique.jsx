@@ -9,7 +9,7 @@ export default function Historique() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const reponse = await fetch('http://localhost:8081/api/annonce/annonces_of_user', {
+        const reponse = await fetch('https://autooccasionpart2-production.up.railway.app/api/annonce/annonces_of_user', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

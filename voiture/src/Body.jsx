@@ -14,7 +14,7 @@ export default function Body() {
   useEffect(() => {
     const fetchData = async () => {
       try{
-        const reponse = await fetch('http://localhost:8081/api/annonce/annonces_validees');
+        const reponse = await fetch('https://autooccasionpart2-production.up.railway.app/api/annonce/annonces_validees');
 
         if(!reponse.ok) {
           throw new Error('Erreur lors de la recuperation des annonces');
@@ -33,7 +33,7 @@ export default function Body() {
 
   const search = async () =>{
     try {
-      const reponse = await fetch(`http://localhost:8081/api/detail/search/${searchs}`);
+      const reponse = await fetch(`https://autooccasionpart2-production.up.railway.app/api/detail/search/${searchs}`);
 
       if(!reponse.ok){
         throw new Error('Erreur lors de la recherche');
@@ -74,9 +74,11 @@ export default function Body() {
   return (
     <div className="container-fluid">
       <div className="row">
-        <div className='text-center input-group' >
+        <div className="container">
+        <div className='text-center input-group'>
         <input type="text" className="form-control" onChange={(e) => setSearchs(e.target.value)} placeholder="Rechercher..." />
         <button type="button" className="btn btn-success" onClick={search} ><i className='fab fa-sistrix' ></i> search</button>
+        </div>
         </div>
         <div className='py-3' ></div>
       <div className="col-md-3 text-center fixed">
@@ -97,7 +99,7 @@ export default function Body() {
         <ScrollPanel className="col-md-9" style={{height:'100vh'}}>
           <h1 className="text-start">Annonce de voiture:</h1>
           <div className="row">
-          {annonceFiltre.map(card => <Card key={card.idAnnonce} annonce={card.idAnnonce} idvoiture={card.idCar} prix={card.prix} date={card.date_annonce} image={card.image_car} lieu={card.lieu} descs={card.description} /> )}
+          {annonceFiltre.map(card => <Card key={card.idAnnonce} annonce={card.idAnnonce} idvoiture={card.idCar} prix={card.prix} date={card.date_annonce} image={card.image_car} lieu={card.lieu} descs={card.description} user={card.idUser} /> )}
           </div>
         </ScrollPanel>
       </div>

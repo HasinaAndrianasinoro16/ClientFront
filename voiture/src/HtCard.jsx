@@ -10,7 +10,7 @@ export default function HtCard({prix, date,image}) {
     return (
         <div className='col-md-3 mb-4'>
             <div className="card">
-                <img src={image} alt='image de vehicule' className='card-img-top img-fluid rounded' />
+                <img src={image} alt="" className='card-img-top img-fluid rounded' style={{height: "300px"}} />
                 <div className='py-2' />
                 <div className='card-body'>
                     <h5 className='card-title'>Prix:{prix} </h5>

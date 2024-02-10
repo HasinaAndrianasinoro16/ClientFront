@@ -14,7 +14,6 @@ import Historique from './Historique';
 import LogSign from './LogSign';
 import Sign from './Sign';
 import Detail from './Detail';
-import Message from './Message';
 import ChatRoom from './ChatRooms';
 import ListContact from './ListContact';
 
@@ -25,7 +24,6 @@ function App() {
       <Routes>
         <Route path='/' element={<Body/>} />
         <Route path='/favoris' element={<Favoris/>} />
-        <Route path='/messagerie' element={<Message/>} />
         <Route path='/historique' element={<Historique/>} />
         <Route path='/log' element={<LogSign/>}/>
         <Route path='/sign' element={<Sign/>}/>
